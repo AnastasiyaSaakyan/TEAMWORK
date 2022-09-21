@@ -9,6 +9,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String products[] = {"Тунец", "Лосось", "Горбуша", "Кета", "Палтус", "Камбала"};
+        boolean isSale = true;
+        int saleCount = 3;
         int prices[] = {60, 50, 100, 70, 20, 40};
         int count[] = new int[products.length];
 
@@ -62,7 +64,15 @@ public class Main {
 
 
             // Высчитываем новое количество товара
-            count[productNumber] += productCount;
+            if (productCount == 0) {
+                count[productNumber] = 0;
+            } else {
+                if (productCount* (-1) > count[productNumber]) {
+                    System.out.println("Вы пытаетесь вычесть товара больше, чем есть в корзине");
+                    continue;
+                }
+                count[productNumber] += productCount;
+            }
         }
         // Считаем сумму по каждому товару
         int tempResult = 0;
@@ -73,13 +83,18 @@ public class Main {
             }
 
             // Подитог за товарную позицию
-            tempResult = prices[i] * count[i];
+            if (isSale) {
+                int productCountSale = count[i] - (int) count[i] / saleCount;
+                tempResult = prices[i] * productCountSale;
+            } else {
+                tempResult = prices[i] * count[i];
+            }
 
             System.out.print(products[i] + " " + count[i] + " шт " +
                     prices[i] + "руб./шт " + tempResult + " руб. в сумме");
             int bonus = prices[i] * count[i] - tempResult;
             if (bonus > 0) {
-                System.out.println(" (Скидка: " + bonus + " руб.");
+                System.out.println(" (Скидка: " + bonus + " руб.)");
             } else {
                 System.out.println();
             }
