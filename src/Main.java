@@ -50,7 +50,6 @@ public class Main {
                 continue;
             }
 
-
 // Высчитываем новое количество товара
             if (productCount == 0) {
                 count[productNumber] = 0;
@@ -68,8 +67,7 @@ public class Main {
             if (count[i] <= 0) {
                 continue;
             }
-
-// Подитог за товарную позицию
+            // Подитог за товарную позицию
             if (isSale) {
                 int productCountSale = count[i] - (int) count[i] / saleCount;
                 tempResult = prices[i] * productCountSale;
@@ -81,7 +79,7 @@ public class Main {
                     prices[i] + "руб./шт " + tempResult + " руб. в сумме");
             int bonus = prices[i] * count[i] - tempResult;
             if (bonus > 0) {
-                System.out.println(" (Скидка: " + bonus + " руб.");
+                System.out.println(" (Скидка: " + bonus + " руб.)");
             } else {
                 System.out.println();
             }
@@ -89,5 +87,4 @@ public class Main {
         }
         System.out.println("Итого: " + sumProducts + " руб.");
     }
-
 }
